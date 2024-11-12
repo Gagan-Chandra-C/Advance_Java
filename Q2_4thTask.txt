@@ -1,0 +1,48 @@
+// Custom exception for invalid voter age 
+class InvalidVoterAgeException extends Exception {
+    public InvalidVoterAgeException(String message) {
+        super(message);
+    }
+}
+
+// Voter class 
+class Voter {
+    private int voterId;
+    private String name;
+    private int age;
+
+    // Parameterized constructor 
+    public Voter(int voterId, String name, int age) throws InvalidVoterAgeException {
+        // Check if age is valid 
+        if (age < 18) {
+            throw new InvalidVoterAgeException("Invalid age for voter");
+        }
+        this.voterId = voterId;
+        this.name = name;
+        this.age = age;
+    }
+
+    // Method to display voter information
+    public void displayInfo() {
+        System.out.println("Voter ID: " + voterId);
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+// Main class to test the program
+public class VoterRegistrationSystem {
+    public static void main(String[] args) {
+        try {
+            // Creating a Voter with valid age 
+            Voter voter1 = new Voter(101, "John Doe", 25);
+            voter1.displayInfo();
+
+            // Creating a Voter with invalid age 
+            Voter voter2 = new Voter(102, "Jane Doe", 16);
+
+        } catch (InvalidVoterAgeException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}
